@@ -494,28 +494,6 @@ mod tests {
         data
     }
 
-    fn debug_path<T: GenFS, P: AsRef<Path>>(fs: &T, p: &P) {
-        for entry in fs.read_dir(p).unwrap() {
-            match entry {
-                Ok(e) => {
-                    let is_dir = e.metadata().unwrap().is_dir();
-                    let key = if is_dir {
-                        "D"
-                    } else {
-                        "F"
-                    };
-
-                    println!("{} - {:?}", key, e.path());
-
-                    if is_dir {
-                        debug_path(fs, &e.path());
-                    }
-                },
-                Err(_) => {}
-            }
-        }
-    }
-
     #[test]
     fn to_hex_string_works() {
         let input_string = String::from("hello");
