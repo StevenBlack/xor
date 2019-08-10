@@ -16,7 +16,7 @@ use std::fmt::Debug;
 use clap::{App, Arg, ArgMatches};
 use std::str::FromStr;
 use std::io::{self};
-use std::io::{Write, Read, Seek, SeekFrom};
+use std::io::{Write, Read};
 use std::path::Path;
 use number_prefix::{binary_prefix, Standalone, Prefixed};
 use rsfs::*;
@@ -335,8 +335,8 @@ fn from_hex_string(hex : &String) -> Vec<u8> {
     hex::FromHex::from_hex(hex).unwrap()
 }
 
-fn get_key_bytes<'a>(matches: &'a ArgMatches<'a>) -> Vec<u8> {
-    let mut key_bytes : Vec<u8> = Vec::new();
+fn get_key_bytes<'a>(_matches: &'a ArgMatches<'a>) -> Vec<u8> {
+    let key_bytes : Vec<u8> = Vec::new();
 
     // let key = matches.value_of("key").unwrap();
 
@@ -488,7 +488,7 @@ mod tests {
     fn read_file_contents<T: GenFS, P: AsRef<Path>>(fs: &T, path: P) -> Vec<u8> {
         let mut x = fs.open_file(path).unwrap();
         let mut data : Vec<u8> = Vec::new();
-        
+
         let _num_read = x.read_to_end(&mut data).unwrap();
 
         data
@@ -626,7 +626,7 @@ mod tests {
         //    |     +-- file_a
         //    |     |
         //    |     +-- file_b
-        //    |     
+        //    |
         //    +-- file_c
         //
 
